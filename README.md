@@ -2,8 +2,8 @@
 # Percolation (CS61B Project 3)
 
 This repository contains a CS61B-style Percolation implementation and visualization tools.
-The core class you implement is `Percolation`, with supporting drivers for statistics and
-visualization.
+
+![Robert Sedgewick in percolation cells](./assets/image.png)
 
 ## Project Structure
 
@@ -19,6 +19,13 @@ visualization.
 - Java (recommended: the version used by your CS61B setup)
 - The Princeton `algs4` library on the classpath
 - JUnit 5 (for running tests)
+
+## Implementation Status
+
+- Percolation uses two union-find structures to avoid backwash: one with virtual top/bottom for percolation checks, and one with virtual top only for fullness checks.
+- `open` is idempotent; opening an already-open site is a no-op (useful for random sampling).
+- Index validation is enforced in `open`, `isOpen`, and `isFull` (throws a `RuntimeException` on out-of-bounds indices).
+- `PercolationStats` validates inputs (throws `IllegalArgumentException` when `N <= 0` or `T <= 0`).
 
 ## Build and Run
 
@@ -43,6 +50,12 @@ java InteractivePercolationVisualizer 10
 ```bash
 java PercolationPicture inputFiles/input1.txt
 ```
+
+## Behavior and Defaults
+
+- `PercolationStats` performs Monte Carlo trials using random sites and reports mean, standard deviation, and 95% confidence interval.
+- The `PercolationStats` `main` method uses `gridSize = 100` and `trials = 1000`.
+- The interactive visualizer debounces mouse presses to avoid reopening the same cell while the button is held; releasing the mouse allows re-clicking a cell.
 
 ## Testing
 

@@ -15,8 +15,8 @@ public class PercolationStats {
         for (int i = 0; i < T; i += 1) {
             Percolation p = new Percolation(N);
             while (!p.percolates()) {
-                int randRow = StdRandom.uniform(N);
-                int randCol = StdRandom.uniform(N);
+                int randRow = StdRandom.uniformInt(N);
+                int randCol = StdRandom.uniformInt(N);
                 p.open(randRow, randCol);
             }
             ratio[i] = ((double) p.numberOfOpenSites()) / (N * N);
@@ -43,7 +43,7 @@ public class PercolationStats {
     }
 
     public static void main(String[] args) {
-        int trials = 100, gridSize = 50;
+        int trials = 1000, gridSize = 100;
         PercolationStats ps = new PercolationStats(gridSize, trials);
         System.out.printf("Grid Size: %d x %d | Number of Trials: %d%n", gridSize, gridSize, trials);
         System.out.printf("The mean percolation threshold is %.2f%n", ps.mean());
